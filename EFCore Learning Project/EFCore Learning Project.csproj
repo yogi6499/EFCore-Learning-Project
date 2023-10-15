@@ -2,7 +2,6 @@
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
-    <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <RootNamespace>EFCore_Learning_Project</RootNamespace>
     <UserSecretsId>33e4c1cf-1f21-4577-b1f4-ba9aa36ef554</UserSecretsId>
