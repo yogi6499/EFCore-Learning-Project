@@ -4,6 +4,7 @@ using EFCore_DataAccess.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EFCore_DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231022144441_many-many-skip-mapping-tables")]
+    partial class manymanyskipmappingtables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,6 +24,21 @@ namespace EFCore_DataAccess.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("AuthorBook", b =>
+                {
+                    b.Property<int>("AuthorsAuthoe_Id")
+                        .HasColumnType("int");
+
+                    b.Property<int>("BooksBookId")
+                        .HasColumnType("int");
+
+                    b.HasKey("AuthorsAuthoe_Id", "BooksBookId");
+
+                    b.HasIndex("BooksBookId");
+
+                    b.ToTable("AuthorBook");
+                });
 
             modelBuilder.Entity("EFCore_Models.Models.Author", b =>
                 {
@@ -48,22 +66,7 @@ namespace EFCore_DataAccess.Migrations
 
                     b.HasKey("Authoe_Id");
 
-                    b.ToTable("Authors", (string)null);
-                });
-
-            modelBuilder.Entity("EFCore_Models.Models.AuthorBook", b =>
-                {
-                    b.Property<int>("BookId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("AuthorId")
-                        .HasColumnType("int");
-
-                    b.HasKey("BookId", "AuthorId");
-
-                    b.HasIndex("AuthorId");
-
-                    b.ToTable("AuthorBook", (string)null);
+                    b.ToTable("Authors");
                 });
 
             modelBuilder.Entity("EFCore_Models.Models.Book", b =>
@@ -88,7 +91,7 @@ namespace EFCore_DataAccess.Migrations
 
                     b.HasIndex("PublisherId");
 
-                    b.ToTable("Books", (string)null);
+                    b.ToTable("Books");
                 });
 
             modelBuilder.Entity("EFCore_Models.Models.BookDetail", b =>
@@ -116,7 +119,7 @@ namespace EFCore_DataAccess.Migrations
                     b.HasIndex("BookId")
                         .IsUnique();
 
-                    b.ToTable("BookDetail", (string)null);
+                    b.ToTable("BookDetail");
                 });
 
             modelBuilder.Entity("EFCore_Models.Models.Genre", b =>
@@ -135,7 +138,7 @@ namespace EFCore_DataAccess.Migrations
 
                     b.HasKey("GenreId");
 
-                    b.ToTable("Genres", (string)null);
+                    b.ToTable("Genres");
 
                     b.HasData(
                         new
@@ -181,7 +184,7 @@ namespace EFCore_DataAccess.Migrations
 
                     b.HasKey("Publisher_Id");
 
-                    b.ToTable("Publishers", (string)null);
+                    b.ToTable("Publishers");
                 });
 
             modelBuilder.Entity("EFCore_Models.Models.SubCategory", b =>
@@ -199,26 +202,22 @@ namespace EFCore_DataAccess.Migrations
 
                     b.HasKey("SubCategoryId");
 
-                    b.ToTable("SubCategorys", (string)null);
+                    b.ToTable("SubCategorys");
                 });
 
-            modelBuilder.Entity("EFCore_Models.Models.AuthorBook", b =>
+            modelBuilder.Entity("AuthorBook", b =>
                 {
-                    b.HasOne("EFCore_Models.Models.Author", "Author")
-                        .WithMany("Books")
-                        .HasForeignKey("AuthorId")
+                    b.HasOne("EFCore_Models.Models.Author", null)
+                        .WithMany()
+                        .HasForeignKey("AuthorsAuthoe_Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("EFCore_Models.Models.Book", "Book")
-                        .WithMany("Authors")
-                        .HasForeignKey("BookId")
+                    b.HasOne("EFCore_Models.Models.Book", null)
+                        .WithMany()
+                        .HasForeignKey("BooksBookId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Author");
-
-                    b.Navigation("Book");
                 });
 
             modelBuilder.Entity("EFCore_Models.Models.Book", b =>
@@ -243,15 +242,8 @@ namespace EFCore_DataAccess.Migrations
                     b.Navigation("Book");
                 });
 
-            modelBuilder.Entity("EFCore_Models.Models.Author", b =>
-                {
-                    b.Navigation("Books");
-                });
-
             modelBuilder.Entity("EFCore_Models.Models.Book", b =>
                 {
-                    b.Navigation("Authors");
-
                     b.Navigation("BookDetail");
                 });
 

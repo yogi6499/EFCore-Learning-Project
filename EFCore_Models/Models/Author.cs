@@ -20,6 +20,7 @@ namespace EFCore_Models.Models
         public string LastName { get; set; }
         public DateTime BirthDate { get; set; }
         public string Location {  get; set; }
+        public List<AuthorBook> AuthorBookMap { get; set; }
         [NotMapped]
         public string FullName
         {

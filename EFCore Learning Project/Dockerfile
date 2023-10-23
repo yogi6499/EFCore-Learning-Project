@@ -4,6 +4,7 @@
 #For more information, please see https://aka.ms/containercompat
 
 FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
+USER ContainerAdministrator
 WORKDIR /app
 EXPOSE 80
 EXPOSE 443

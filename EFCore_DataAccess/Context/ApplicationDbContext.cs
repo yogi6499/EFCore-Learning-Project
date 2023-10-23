@@ -41,6 +41,8 @@ namespace EFCore_DataAccess.Context
                 e.HasData(genreList);
                 e.Property(m => m.GenreId).UseIdentityColumn();
             });
+
+            modelBuilder.Entity<AuthorBook>().HasKey(x => new { x.BookId, x.AuthorId });
         }
     }
 }
