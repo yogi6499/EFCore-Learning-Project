@@ -34,7 +34,10 @@ namespace EFCore_DataAccess.Context
 
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<Book>().Property(x => x.Price).HasPrecision(10, 5);
+            modelBuilder.Entity<Book>(x =>
+            {
+                x.Property(x => x.Price).HasPrecision(10, 5);
+            });
 
             modelBuilder.Entity<Genre>(e =>
             {

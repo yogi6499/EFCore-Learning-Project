@@ -1,3 +1,9 @@
+using DomainLayer.Interface;
+using DomainLayer.Processor;
+using EFCore_DataAccess.Context;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+
 internal class Program
 {
     private static void Main(string[] args)
@@ -7,6 +13,13 @@ internal class Program
         // Add services to the container.
 
         builder.Services.AddControllers();
+        //service injection
+        builder.Services.AddScoped<ApplicationDbContext>();
+        //builder.Services.AddDbContext<ApplicationDbContext>(options =>
+        //options.UseSqlServer(builder.Configuration.GetConnectionString("ConnectionStrings")));
+
+        builder.Services.AddTransient<IBookProcessor,BookProcessor>();
+
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();

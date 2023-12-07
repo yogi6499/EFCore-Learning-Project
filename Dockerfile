@@ -4,7 +4,6 @@
 #For more information, please see https://aka.ms/containercompat
 
 FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
-USER ContainerAdministrator
 WORKDIR /app
 EXPOSE 80
 EXPOSE 443
@@ -12,6 +11,9 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
 COPY ["EFCore Learning Project/EFCore Learning Project.csproj", "EFCore Learning Project/"]
+COPY ["DomainLayer/DomainLayer.csproj", "DomainLayer/"]
+COPY ["EFCore_DataAccess/EFCore_DataAccess.csproj", "EFCore_DataAccess/"]
+COPY ["EFCore_Models/EFCore_Models.csproj", "EFCore_Models/"]
 RUN dotnet restore "EFCore Learning Project/EFCore Learning Project.csproj"
 COPY . .
 WORKDIR "/src/EFCore Learning Project"
