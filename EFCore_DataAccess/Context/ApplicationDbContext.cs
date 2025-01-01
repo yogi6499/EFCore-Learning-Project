@@ -19,7 +19,7 @@ namespace EFCore_DataAccess.Context
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
-            optionsBuilder.UseSqlServer("Server=.;Database=EFCoreLearning;TrustServerCertificate=True;Trusted_Connection=True;");            
+            optionsBuilder.UseSqlServer("Server=.;Database=EFCoreLearning;TrustServerCertificate=True;Trusted_Connection=True;");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

@@ -4,7 +4,6 @@ using EFCore_DataAccess.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -12,11 +11,9 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EFCore_DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231207062132_test")]
-    partial class test
+    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -51,7 +48,7 @@ namespace EFCore_DataAccess.Migrations
 
                     b.HasKey("Authoe_Id");
 
-                    b.ToTable("Authors");
+                    b.ToTable("Authors", (string)null);
                 });
 
             modelBuilder.Entity("EFCore_Models.Models.AuthorBook", b =>
@@ -66,7 +63,7 @@ namespace EFCore_DataAccess.Migrations
 
                     b.HasIndex("AuthorId");
 
-                    b.ToTable("AuthorBook");
+                    b.ToTable("AuthorBook", (string)null);
                 });
 
             modelBuilder.Entity("EFCore_Models.Models.Book", b =>
@@ -91,7 +88,7 @@ namespace EFCore_DataAccess.Migrations
 
                     b.HasIndex("PublisherId");
 
-                    b.ToTable("Books");
+                    b.ToTable("Books", (string)null);
                 });
 
             modelBuilder.Entity("EFCore_Models.Models.BookDetail", b =>
@@ -119,7 +116,7 @@ namespace EFCore_DataAccess.Migrations
                     b.HasIndex("BookId")
                         .IsUnique();
 
-                    b.ToTable("BookDetail");
+                    b.ToTable("BookDetail", (string)null);
                 });
 
             modelBuilder.Entity("EFCore_Models.Models.Genre", b =>
@@ -138,7 +135,7 @@ namespace EFCore_DataAccess.Migrations
 
                     b.HasKey("GenreId");
 
-                    b.ToTable("Genres");
+                    b.ToTable("Genres", (string)null);
 
                     b.HasData(
                         new
@@ -184,7 +181,7 @@ namespace EFCore_DataAccess.Migrations
 
                     b.HasKey("Publisher_Id");
 
-                    b.ToTable("Publishers");
+                    b.ToTable("Publishers", (string)null);
                 });
 
             modelBuilder.Entity("EFCore_Models.Models.SubCategory", b =>
@@ -202,19 +199,19 @@ namespace EFCore_DataAccess.Migrations
 
                     b.HasKey("SubCategoryId");
 
-                    b.ToTable("SubCategorys");
+                    b.ToTable("SubCategorys", (string)null);
                 });
 
             modelBuilder.Entity("EFCore_Models.Models.AuthorBook", b =>
                 {
                     b.HasOne("EFCore_Models.Models.Author", "Author")
-                        .WithMany("AuthorBookMap")
+                        .WithMany("Books")
                         .HasForeignKey("AuthorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("EFCore_Models.Models.Book", "Book")
-                        .WithMany("AuthorBookMap")
+                        .WithMany("Authors")
                         .HasForeignKey("BookId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -248,12 +245,12 @@ namespace EFCore_DataAccess.Migrations
 
             modelBuilder.Entity("EFCore_Models.Models.Author", b =>
                 {
-                    b.Navigation("AuthorBookMap");
+                    b.Navigation("Books");
                 });
 
             modelBuilder.Entity("EFCore_Models.Models.Book", b =>
                 {
-                    b.Navigation("AuthorBookMap");
+                    b.Navigation("Authors");
 
                     b.Navigation("BookDetail");
                 });

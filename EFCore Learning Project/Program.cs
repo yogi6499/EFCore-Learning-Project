@@ -14,9 +14,10 @@ internal class Program
 
         builder.Services.AddControllers();
         //service injection
-        builder.Services.AddScoped<ApplicationDbContext>();
-        //builder.Services.AddDbContext<ApplicationDbContext>(options =>
-        //options.UseSqlServer(builder.Configuration.GetConnectionString("ConnectionStrings")));
+        //builder.Services.AddScoped<ApplicationDbContext>();
+        var connectionString = builder.Configuration.GetConnectionString("ConnectionStrings");
+        builder.Services.AddDbContext<ApplicationDbContext>(options =>
+        options.UseSqlServer(connectionString));
 
         builder.Services.AddTransient<IBookProcessor,BookProcessor>();
 

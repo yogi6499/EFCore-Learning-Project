@@ -20,18 +20,18 @@ namespace EFCore_Models.Models
         public string LastName { get; set; }
         public DateTime BirthDate { get; set; }
         public string Location {  get; set; }
-        public List<AuthorBook> AuthorBookMap { get; set; }
-        [NotMapped]
-        public string FullName
-        {
-            get
-            {
-                return FullName ?? string.Empty;
-            } 
-            set
-            {
-                FullName = FirstName + LastName;
-            }
-        }
+        public List<AuthorBook> AuthorBookMap { get; set; } = new List<AuthorBook>();
+        //[NotMapped]
+        //public string FullName
+        //{
+        //    get
+        //    {
+        //        return FullName ?? string.Empty;
+        //    } 
+        //    set
+        //    {
+        //        FullName = FirstName + LastName;
+        //    }
+        //}
     }
 }
